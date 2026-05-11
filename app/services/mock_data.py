@@ -1,0 +1,1 @@
+MOCK_USER = {"id": 1, "username": "Kirill"}
