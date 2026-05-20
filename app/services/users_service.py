@@ -1,32 +1,35 @@
 from app.services.mock_data import MOCK_USER
 from app.models.user import User
+from passlib.context import CryptContext
 
-fakeUserName = 'kirill'
-fakeUserPassword = '123'
+pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 class UsersService:
-    
     def __init__(self, db: Session = None):
         self.db = db
     
     def get_user(self):
         return MOCK_USER
     
-    def login(self, name:str, password:str):
-        if name == fakeUserName and password == fakeUserPassword:
-            return MOCK_USER
-        
-        return None
-    
+    def login(self, name:str, password:str): 
+       user = self.db.query(User).filter(User.username == name).first()
+       if not user:
+           return None
+       
+       if pwd_context.verify(password, user.password):
+           return user
+            
     def register(self, username:str, email:str, password:str):
         existing_user = self.db.query(User).filter(User.username == username).first()
         if existing_user:
             return {'error': 'Username already exist'}
         
+        hashed_password = pwd_context.hash(password)
+        
         new_user = User(
             username=username,
             email=email,
-            password=password
+            password=hashed_password
         )
         
         self.db.add(new_user)
