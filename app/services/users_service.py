@@ -58,3 +58,6 @@ class UsersService:
             'user': user,
             'message': 'Profile updated successfully'
         }
+        
+    def get_first_user(self):
+        return self.db.query(User).first()

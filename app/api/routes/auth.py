@@ -26,3 +26,20 @@ def register(
     userService = UsersService(db)
     result = userService.register(username, email, password)
     return result
+
+
+@router.get('/api/auth/me')
+def get_current_user(
+    db: Session = Depends(get_db)
+):
+    user_service = UsersService(db)
+    user = user_service.get_first_user()
+    
+    if not user:
+        return {'error': 'User not found'}
+    
+    return {
+        'id': user.id,
+        'username': user.username,
+        'email': user.email
+    }
