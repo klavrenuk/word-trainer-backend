@@ -19,12 +19,12 @@ def login(name: str = Form(...), password: str = Form(...)):
 @router.post('/register')
 def register(
     username: str = Form(...),
-    email: str = Form(...),
+    name: str = Form(...),
     password: str = Form(...),
     db: Session = Depends(get_db)
 ):
     userService = UsersService(db)
-    result = userService.register(username, email, password)
+    result = userService.register(username, name, password)
     return result
 
 

@@ -19,16 +19,16 @@ class UsersService:
        if pwd_context.verify(password, user.password):
            return user
             
-    def register(self, username:str, email:str, password:str):
-        existing_user = self.db.query(User).filter(User.username == username).first()
+    def register(self, login:str, name:str, password:str):
+        existing_user = self.db.query(User).filter(User.login == login).first()
         if existing_user:
             return {'error': 'Username already exist'}
         
         hashed_password = pwd_context.hash(password)
         
         new_user = User(
-            username=username,
-            email=email,
+            login=login,
+            name=name,
             password=hashed_password
         )
         
