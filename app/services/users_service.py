@@ -11,7 +11,7 @@ class UsersService:
     def get_user(self):
         return MOCK_USER
     
-    def login(self, name:str, password:str): 
+    def login(self, login:str, password:str): 
        user = self.db.query(User).filter(User.username == name).first()
        if not user:
            return None
@@ -42,14 +42,13 @@ class UsersService:
             'email': new_user.email
         }
         
-    def update_user(self, user_id: int, name: str, email: str):
+    def update_user(self, user_id: int, name: str):
         user = self.db.query(User).filter(User.id == user_id).first()
         
         if not user:
             return {'error': 'User not found'}
         
         user.username = name
-        user.email = email
         
         self.db.commit()
         self.db.refresh(user)
