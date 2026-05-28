@@ -16,7 +16,7 @@ def login(login: str = Form(...), password: str = Form(...)):
     return {'message': 'Authorized'}
 
 
-@router.post('/register')
+@router.post('/registration')
 def register(
     login: str = Form(...),
     name: str = Form(...),
