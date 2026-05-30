@@ -7,13 +7,14 @@ router = APIRouter()
 
 
 @router.post("/login")
-def login(login: str = Form(...), password: str = Form(...)):
-    usersService = UsersService()
+def login(login: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+    usersService = UsersService(db)
     user = usersService.login(login, password)
 
     if not user:
         return {'error': 'Не правильный логин или пароль'}
-    return {'message': 'Authorized'}
+    
+    return user
 
 
 @router.post('/registration')
@@ -34,10 +35,10 @@ def get_current_user(
 ):
     user_service = UsersService(db)
     user = user_service.get_first_user()
-    
+
     if not user:
         return {'error': 'User not found'}
-    
+
     return {
         'id': user.id,
         'username': user.username,
