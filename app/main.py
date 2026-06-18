@@ -7,6 +7,7 @@ from app.models import user
 from app.api.routes import profile
 from app.api.routes import auth
 from app.api.routes import words
+from app.api.routes import results
 
 Base.metadata.create_all(bind=engine)
 
@@ -23,6 +24,7 @@ app.add_middleware(
 app.include_router(profile.router)
 app.include_router(auth.router)
 app.include_router(words.router)
+app.include_router(results.router)
 
 @app.get("/")
 def hello_world():
