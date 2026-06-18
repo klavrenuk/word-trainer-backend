@@ -8,6 +8,7 @@ from app.api.routes import profile
 from app.api.routes import auth
 from app.api.routes import words
 from app.api.routes import results
+from app.api.routes import game
 
 Base.metadata.create_all(bind=engine)
 
@@ -25,6 +26,7 @@ app.include_router(profile.router)
 app.include_router(auth.router)
 app.include_router(words.router)
 app.include_router(results.router)
+app.include_router(game.router)
 
 @app.get("/")
 def hello_world():
