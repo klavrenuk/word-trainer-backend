@@ -5,6 +5,7 @@ from app.models.user import User
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
+from passlib.context import CryptContext
 
 from app.core.config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
@@ -88,3 +89,18 @@ class UsersService:
 
     def get_first_user(self):
         return self.db.query(User).first()
+
+    def update_password(self, user_id, old_password, new_password):
+        user = self.db.query(User).filter(User.id == user_id).first()
+
+        if not user:
+            return {
+                'error': 'User is not found'
+            }
+
+        hashed_password = pwd_context.has(new_password)
+        user.password = hashed_password
+        self.db.commit()
+        self.db.refresh()
+
+
