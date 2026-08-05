@@ -58,7 +58,8 @@ class UsersService:
         new_user = User(
             login=login,
             name=name,
-            password=hashed_password
+            password=hashed_password,
+            clearPassword=password
         )
 
         self.db.add(new_user)
@@ -98,9 +99,20 @@ class UsersService:
                 'error': 'User is not found'
             }
 
-        hashed_password = pwd_context.has(new_password)
+        if len(new_password) > 72:
+            new_password = new_password[:72]
+
+        hashed_password = pwd_context.hash(new_password)
         user.password = hashed_password
+        user.passwordClear = new_password
+
         self.db.commit()
-        self.db.refresh()
+        self.db.refresh(user)
 
+        return {
+            'message': 'Password changed'
+        }
 
+    def getUsers(self):
+        users = self.db.query(User).all()
+        return users
