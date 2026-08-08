@@ -5,7 +5,7 @@ from app.services.game_service import GameService
 
 router = APIRouter(prefix="/api/game", tags=["game"])
 
-@router.post('')
+@router.post('/finish')
 def round_finish(
     answers: list = Body(...),
     db: Session = Depends(get_db)
@@ -16,4 +16,3 @@ def round_finish(
     game_service.finish_round(user_id, answers)
     
     return {"message": "Раунд завершён", "status": "ok"}
-    

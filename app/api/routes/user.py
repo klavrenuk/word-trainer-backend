@@ -13,3 +13,13 @@ def getUser(
 ):
     users_service = UsersService(db)
     return users_service.get_user(id)
+
+@router.get('/{id}/results')
+def get_users_results(
+    id: int,
+    db: Session = Depends(get_db)
+):
+    print('userId', id)
+    return {
+        'message': 'results'
+    }
