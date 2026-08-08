@@ -1,0 +1,4 @@
+[project]
+name = "word-trainer-backend"
+version = "1.0.0"
+description = "API for study words"
