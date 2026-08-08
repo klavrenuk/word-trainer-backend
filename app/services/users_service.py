@@ -16,7 +16,9 @@ class UsersService:
         self.db = db
 
     def get_user(self):
-        return MOCK_USER
+        return {
+            "message": "User empty"
+        }
     
     def create_access_token(self, data: dict):
         to_encode = data.copy()
