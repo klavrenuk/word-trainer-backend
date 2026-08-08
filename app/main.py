@@ -10,6 +10,7 @@ from app.api.routes import words
 from app.api.routes import results
 from app.api.routes import game
 from app.api.routes import admin
+from app.api.routes import user
 
 Base.metadata.create_all(bind=engine)
 
@@ -29,7 +30,8 @@ app.include_router(words.router)
 app.include_router(results.router)
 app.include_router(game.router)
 app.include_router(admin.router)
+app.include_router(user.router)
 
 @app.get("/")
-def hello_world():
-    return {"message": "Hello world trainer"}
+def start():
+    return {"message": "Trainer words"}

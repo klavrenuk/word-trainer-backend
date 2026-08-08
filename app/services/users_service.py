@@ -15,10 +15,13 @@ class UsersService:
     def __init__(self, db: Session = None):
         self.db = db
 
-    def get_user(self):
-        return {
-            "message": "User empty"
-        }
+    def get_user(self, user_id):
+        user = self.db.query(User).filter(User.id == user_id).first()
+
+        if not user:
+            return {'error': 'User not found'}
+
+        return user
     
     def create_access_token(self, data: dict):
         to_encode = data.copy()
