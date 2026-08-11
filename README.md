@@ -33,6 +33,9 @@ python seed_words.py
 
 # Запуск сервера:
 uvicorn app.main:app --reload
+
+# Загрузка слов в бд
+python seed_words.py
 ```
 
 ## Установка
