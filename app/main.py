@@ -5,12 +5,11 @@ from app.core.database import engine, Base
 from app.models import user
 from app.models import word
 from app.models import user_mistake
-from app.models import user_result
+from app.models import user_results
 
 from app.api.routes import profile
 from app.api.routes import auth
 from app.api.routes import words
-from app.api.routes import results
 from app.api.routes import game
 from app.api.routes import admin
 from app.api.routes import users
@@ -30,7 +29,6 @@ app.add_middleware(
 app.include_router(profile.router)
 app.include_router(auth.router)
 app.include_router(words.router)
-app.include_router(results.router)
 app.include_router(game.router)
 app.include_router(admin.router)
 app.include_router(users.router)

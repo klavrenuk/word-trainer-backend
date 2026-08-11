@@ -1,4 +1,4 @@
-from app.models import user, word, user_mistake, user_results_model
+from app.models import user, word, user_mistake, user_results
 from app.core.database import Base
 from pathlib import Path
 import sys
