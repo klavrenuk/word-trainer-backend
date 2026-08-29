@@ -1,6 +1,5 @@
 import jwt
 
-from app.services.mock_data import MOCK_USER
 from app.models.user import User
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session

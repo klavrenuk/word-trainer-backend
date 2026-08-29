@@ -13,6 +13,7 @@ from app.api.routes import words
 from app.api.routes import game
 from app.api.routes import admin
 from app.api.routes import users
+from app.api.routes import statistics
 
 Base.metadata.create_all(bind=engine)
 
@@ -32,6 +33,7 @@ app.include_router(words.router)
 app.include_router(game.router)
 app.include_router(admin.router)
 app.include_router(users.router)
+app.include_router(statistics.router)
 
 @app.get("/")
 def start():

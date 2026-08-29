@@ -21,7 +21,7 @@ def game_start(
         user_id: int,
         db: Session = Depends(get_db)
 ):
-    game_service = GameService(db)
+    game_service = GameService(db) # send session for db
     list_words = game_service.start_round(user_id)
 
     return list_words
