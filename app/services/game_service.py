@@ -2,8 +2,6 @@ from sqlalchemy.orm import Session
 from app.models.user_mistake import UserMistake
 from app.repositories.game_repository import GameRepository
 
-from app.core.constants import ROUND_WORDS_LIMIT
-
 class GameService:
     def __init__(self, db:Session):
         self.db = db
@@ -21,13 +19,13 @@ class GameService:
                 
         self.db.commit()
 
-    def start_round(self, user_id):
-        mistake_words = self.game_repository.get_mistake_words(user_id, ROUND_WORDS_LIMIT)
+    def start_round(self, user_id: int, count_words:int):
+        mistake_words = self.game_repository.get_mistake_words(user_id, count_words)
 
-        if len(mistake_words) < ROUND_WORDS_LIMIT:
+        if len(mistake_words) < count_words:
             mistake_ids = [word.id for word in mistake_words]
 
-            new_words = self.game_repository.get_new_words(mistake_ids, ROUND_WORDS_LIMIT - len(mistake_words))
+            new_words = self.game_repository.get_new_words(mistake_ids, count_words - len(mistake_words))
             mistake_words.extend(new_words)
 
         return mistake_words
