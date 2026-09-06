@@ -18,3 +18,13 @@ class GameRepository():
         return self.db.query(Word).filter(
             Word.id.not_in(exclude_ids)
         ).limit(limit).all()
+
+    def add_mistakes(self, user_id: int, word_ids: list):
+        mistakes = []
+
+        for word_id in word_ids:
+            mistakes.append(UserMistake(user_id=user_id, word_id=word_id))
+
+        self.db.add_all(mistakes)
+        self.db.commit()
+        return mistakes

@@ -10,7 +10,7 @@ router = APIRouter(prefix="/api/game", tags=["game"])
 @router.post('/finish')
 def round_finish(
     user_id: int = Body(...),
-    answers: list = Body(...),
+    answers: list = Body(...),  #list with wrong words
     db: Session = Depends(get_db)
 ):
     game_service = GameService(db)

@@ -8,16 +8,14 @@ class GameService:
         self.game_repository = GameRepository(db)
         
     def finish_round(self, user_id: int, answers: list):
+        mistake_ids = []
         for answer in answers:
-            if not answer['is_correct']:
-                new_mistake = UserMistake(
-                    user_id=user_id,
-                    word_id=answer['word_id']
-                )
-                
-                self.db.add(new_mistake) 
-                
-        self.db.commit()
+            mistake_ids.append(answer.id)
+
+        print(mistake_ids)
+        if mistake_ids:
+            self.game_repository.add_mistakes(user_id, mistake_ids)
+
 
     def start_round(self, user_id: int, count_words:int):
         mistake_words = self.game_repository.get_mistake_words(user_id, count_words)
